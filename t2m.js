@@ -1,6 +1,10 @@
+#!/usr/bin/env node
+
 var fs = require("fs");
 var bencode = require('bencode');
 var sha1 = require('js-sha1');
+var ncp = require("copy-paste");
+
 var arguments = process.argv.splice(2); //获取命令行参数，第三个元素是带的参数
 
 outMagnets(getMagnets(arguments), arguments);
@@ -32,7 +36,8 @@ function getMagnets(arguments) {
  */
 function outMagnets(magnets, path) {
     if (magnets.length > 0) {
-        var writebuffer = Buffer.from(arrayToString(magnets, '\n'));
+        var str_value = arrayToString(magnets, '\n');
+        var writebuffer = Buffer.from(str_value);
         var savepath = path.toString() + '/' + "magnets.txt";
         var writesteam = fs.createWriteStream(savepath);
         writesteam.write(writebuffer, 'utf-8');
@@ -40,6 +45,12 @@ function outMagnets(magnets, path) {
         writesteam.on('finish', function () {
             console.log("写入完成");
         });
+
+        // 将字符串写到剪切板
+        ncp.copy(str_value, function () {
+            console.log('复制成功');
+          })
+
         writesteam.on('error', function (err) {
             console.log(err);
         });

@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "t2m.js",
-  "scripts": {},
+  "bin": {
+    "t2m": "t2m.js"
+  },
+  "scripts": {
+    "start": "node t2m.js"
+  },
   "keywords": [],
   "devDependencies": {
     "bencode": "2.0.1",
@@ -14,5 +19,8 @@
     "url": "https://github.com/109383670/t2m.git"
   },
   "author": "lishuai",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "copy-paste": "^1.5.3"
+  }
 }
